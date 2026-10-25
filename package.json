@@ -1,0 +1,17 @@
+{
+  "name": "atelier-puter-chat",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A considered, local-first AI chat interface powered by Puter.js",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/core.test.mjs",
+    "check": "node --check src/app.js && node --check src/core.js && node --check src/markdown.js",
+    "test:browser": "node tests/browser.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f9f8f5">
+  <meta name="description" content="A little space for your biggest ideas. Chat with Claude through Puter.js.">
+  <title>Atelier — AI, thoughtfully</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./src/styles.css">
+  <script src="https://js.puter.com/v2/" defer></script>
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#prompt">Skip to message</a>
+  <div class="app-shell">
+    <button id="scrim" class="scrim" aria-label="Close navigation" hidden></button>
+    <aside id="sidebar" aria-label="Conversation navigation">
+      <a class="brand" href="./" aria-label="Atelier home"><span class="brand-mark">a<span>✳</span></span> atelier<span class="brand-dot">.</span></a>
+      <button id="new-chat" class="primary new-chat"><span>＋</span> New conversation <kbd>⌘ K</kbd></button>
+      <label class="search"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg></span><input id="search" type="search" placeholder="Search conversations" aria-label="Search conversations"></label>
+      <div class="section-label">YOUR SPACE <span id="chat-count">0</span></div>
+      <nav id="chat-list" aria-label="Saved conversations"></nav>
+      <div class="sidebar-bottom">
+        <div class="local-note"><span class="local-icon" aria-hidden="true">◇</span><div><strong>Yours, by default.</strong><p>History stays in this browser.</p></div></div>
+        <button id="settings-open" class="sidebar-action"><span aria-hidden="true">⚙</span> Settings & preferences <span aria-hidden="true">↗</span></button>
+        <button id="auth" class="account"><span class="avatar">Y</span><span id="auth-label">Connect to Puter<small>Your account powers the AI</small></span><span aria-hidden="true">↗</span></button>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div class="topbar-left"><button id="menu" class="icon-button mobile-only" aria-label="Open navigation" aria-expanded="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><span class="workspace-label">Personal workspace</span><span class="slash">/</span><span id="conversation-title">New conversation</span></div>
+        <div class="topbar-right"><span class="powered"><span></span> Powered by Puter</span><button id="export-chat" class="icon-button" aria-label="Export conversation as Markdown" title="Export conversation"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></svg></button><button id="theme-toggle" class="icon-button" aria-label="Toggle light or dark theme" title="Toggle theme"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.5A8.7 8.7 0 0 1 10.5 3 9 9 0 1 0 20.5 13.5Z"/></svg></button></div>
+      </header>
+      <section id="scroll-area" class="scroll-area" aria-label="Conversation">
+        <div id="welcome" class="welcome">
+          <div class="eyebrow"><span></span> A LITTLE SPACE FOR BIG IDEAS</div>
+          <h1>Where should we<br>take your <em>thinking?</em></h1>
+          <p class="intro">A fresh perspective. A first draft. Your next big thing. <br>Make room for what’s on your mind.</p>
+          <div class="suggestions">
+            <button data-prompt="Help me brainstorm a distinctive idea for a personal project. Ask me about my interests first."><span class="suggest-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/></svg></span><strong>Find a spark</strong><span>Turn a small thought into something.</span><b>↗</b></button>
+            <button data-prompt="Help me turn a rough idea into clear, compelling writing. Ask me what I’m working on."><span class="suggest-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 5 5L9 20l-6 1 1-6Z"/><path d="m13 6 5 5"/></svg></span><strong>Make it clearer</strong><span>Find the right words, together.</span><b>↗</b></button>
+            <button data-prompt="Explain quantum computing in simple terms, using a memorable everyday analogy."><span class="suggest-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5Z"/></svg></span><strong>Go a little deeper</strong><span>Make a complex idea click.</span><b>↗</b></button>
+            <button data-prompt="Help me debug some code. Ask me to share the code, the error, and the expected behavior."><span class="suggest-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-5 2 2-16"/></svg></span><strong>Build something</strong><span>From a blank page to a working plan.</span><b>↗</b></button>
+          </div>
+          <div class="welcome-foot">YOUR CURIOSITY. A LITTLE MOMENTUM.</div>
+        </div>
+        <div id="messages" class="messages" role="log" aria-label="Chat messages" aria-live="off"></div>
+      </section>
+      <div class="composer-zone">
+        <button id="jump-bottom" class="jump-bottom" hidden>↓ Latest message</button>
+        <div id="attachments" class="attachments"></div>
+        <form id="composer" class="composer">
+          <label class="sr-only" for="prompt">Message</label>
+          <textarea id="prompt" rows="1" placeholder="Ask anything, or think out loud…" maxlength="100000"></textarea>
+          <div class="composer-toolbar"><div class="composer-tools"><button id="attach" class="icon-button" type="button" aria-label="Attach a text or code file" title="Attach text or code (up to 100 KB)">＋</button><span class="tool-divider"></span><label class="sr-only" for="model-select">AI model</label><select id="model-select" title="AI model"><option value="anthropic/claude-opus-5-5">Claude Opus 5.5 · custom</option></select></div><div class="send-tools"><span class="enter-hint">Enter to send</span><button id="send" class="send" type="submit" aria-label="Send message">↑</button><button id="stop" class="stop" type="button" hidden>■ Stop</button></div></div>
+        </form>
+        <p class="composer-note">A thoughtful partner, not a source of truth. Always double-check important details.</p>
+      </div>
+    </main>
+  </div>
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form id="settings-form">
+      <div class="dialog-header"><div><div class="eyebrow">MAKE IT YOURS</div><h2 id="settings-title">Your preferences</h2></div><button id="settings-close" type="button" class="icon-button" aria-label="Close settings">×</button></div>
+      <label>Model ID<input id="model-input" required maxlength="200" placeholder="Enter an exact Puter model ID"><small>Your script’s model is preserved. If unavailable, choose a model from the live catalog.</small></label>
+      <button id="refresh-models" class="secondary" type="button">Refresh live model catalog</button>
+      <p id="catalog-status" class="muted" role="status">Catalog has not been loaded.</p>
+      <label>System instructions<textarea id="system-input" rows="4" maxlength="12000" placeholder="How should the assistant respond?"></textarea></label>
+      <div class="settings-grid"><label>Output token limit<input id="tokens-input" type="number" min="256" max="64000" step="1" required></label><label>Appearance<select id="theme-input"><option value="system">Match device</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
+      <p class="privacy-note">Conversations and preferences are stored in this browser, unencrypted. Messages, instructions, and attached text are sent to Puter and its AI providers when you send. Puter account limits and charges may apply.</p>
+      <div class="data-actions"><button id="export-all" class="secondary" type="button">Export backup</button><button id="import-all" class="secondary" type="button">Import backup</button><button id="clear-all" class="secondary danger" type="button">Clear history</button></div>
+      <button class="primary save-settings" type="submit">Save preferences</button>
+    </form>
+  </dialog>
+  <input id="file-input" type="file" accept=".txt,.md,.csv,.json,.js,.ts,.tsx,.jsx,.py,.html,.css,.xml,.yaml,.yml,.log,.sql,.sh,.rs,.go,.java,.c,.cpp,.rb" hidden>
+  <input id="import-input" type="file" accept="application/json,.json" hidden>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="live-status" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
